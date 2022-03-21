@@ -1,7 +1,7 @@
 openapi: '3.0.2'
 info:
   title: JPJ Vehicle Management - Training
-  version: '1.0'
+  version: '1.1'
 servers:
   - url: http://localhost:8089/v1
 paths:
@@ -59,40 +59,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/Vehicle'
 
+  /summon:
+    get: 
+      tags:
+        - 'Summons'
+      summary: Get list of summon based on filtering criteria.
+      description: Get list of summon based on filtering criteria.
+      operationId: getSummonByCriteria
+      parameters:
+        - name: carPlateNumber
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Summon details for the given car plate number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summon'
+
 components:
-  parameters:
-    pageNoParam:
-      name: pageNo
-      in: query
-      description: Page number
-      required: true
-      schema:
-        type: integer
-
-    pageSizeParam:
-      name: pageSize
-      in: query
-      description: Page size
-      required: true
-      schema:
-        type: integer
-
-    manufactureYearParam:
-      name: manufactureDate
-      in: query
-      description: Date range (from)
-      required: false
-      schema:
-        type: string
-
-    vehicleCarPlateParam:
-      name: vehicleCarPlate
-      in: query
-      description: Vehicle car plate number
-      required: false
-      schema:
-        type: string
-
   schemas:
     PlatformError:
       type: object
